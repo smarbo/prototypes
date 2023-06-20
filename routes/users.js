@@ -12,6 +12,7 @@ router
 // create user POST route
     .route("/")
     .post(async(req, res) => {
+        console.log("POST /users/ REQUEST");
         try {
             // create user with request body
             const user = await User.create(req.body);
@@ -27,7 +28,9 @@ router
 
 // get users GET route
 .get(async(req, res) => {
+    console.log("GET /users/ REQUEST");
     try {
+
         // find all users in the DB
         const users = await User.find({});
         // send back all users if successful - in an array of JSON objects
@@ -44,6 +47,7 @@ router
 // find user by id GET route
     .route("/:id")
     .get(async(req, res) => {
+        console.log("GET /users/:id REQUEST");
         try {
             // fetch ID from request parameters
             const { id } = req.params;
@@ -59,6 +63,7 @@ router
     })
     // update user by id PUT route
     .put(async(req, res) => {
+        console.log("PUT /users/:id REQUEST");
         try {
             // fetch ID from request parameters
             const { id } = req.params;
@@ -79,6 +84,7 @@ router
     })
     // delete user by id DELETE route
     .delete(async(req, res) => {
+        console.log("DELETE /users/:id REQUEST");
         try {
             // fetch ID from request parameters
             const { id } = req.params;
@@ -97,6 +103,65 @@ router
         }
     })
 
+router
+// login user by username GET route
+    .route("/login/:username")
+    .get(async(req, res) => {
+        console.log("GET /users/login/:username REQUEST");
+        try {
+            const { username } = req.params;
+            const { password } = req.query;
+
+            const userArray = await User.find({
+                username: username,
+            });
+            const user = userArray[0]
+
+            console.log(user.username)
+            console.log(user.password)
+            console.log(password)
+            if (!user) {
+                res.cookie("message", "User not found")
+                res.cookie("message-id", "warn");
+                console.log("User doesnt exist");
+                return res.status(404).json({ message: `Cannot find user with username ${username}}` });
+
+            }
+            if (user.password === password) {
+                // successfully log in!
+                console.log(user.password)
+                res.cookie("username", user.username);
+                res.cookie("id", user._id)
+                res.cookie("profile", user.profile);
+                res.cookie("message", "Logged in successfully!")
+                res.cookie("message-id", "success")
+                res.status(200).json({ message: "Success login" })
+            } else {
+                console.log("Incorrect password")
+                res.cookie("message", "Incorrect password!")
+                res.status(403).json({ message: "Bad password" })
+            }
+        } catch (error) {
+            console.log(error.message)
+            res.cookie("message", "User not found!")
+            res.status(404).json({ message: error.message });
+        }
+    })
+
+router
+    .route("/v2/:username")
+    .get(async(req, res) => {
+        console.log("GET /users/:username REQUEST");
+        try {
+            const { username } = req.params
+            const user = await User.find({
+                username: username
+            });
+            res.status(200).json(user);
+        } catch (error) {
+            console.log(error)
+        }
+    })
 
 // export the router
 module.exports = router;

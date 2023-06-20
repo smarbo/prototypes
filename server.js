@@ -18,16 +18,18 @@ app.get("/", (req, res) => {
     // set status code to 200 - success
     res.statusCode = 200;
     // send back the index.html file which is the home page
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "html", "index.html"));
     // log to the console that there was a request
     console.log("GET / REQUEST");
 })
 
+console.log("Attempting to connect to MongoDB...");
 // Connect to MongoDB using Mongoose
 mongoose.connect(config.MONGOOSEURI)
     .then(() => {
         console.log("Successfully connected to MongoDB🍃");
         // Run API server
+        console.log("Attempting to run server...");
         app.listen(config.PORT, () => {
             console.log(`API running on port ${config.PORT}`);
         })

@@ -14,6 +14,10 @@ const userSchema = mongoose.Schema({
     profile: {
         type: String,
         required: false
+    },
+    following: {
+        type: Array,
+        required: false
     }
 }, {
     timestamps: true
