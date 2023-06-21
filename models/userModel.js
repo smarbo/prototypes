@@ -15,8 +15,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    following: {
-        type: Array,
+    following: [{ username: String }],
+    room: {
+        type: String,
         required: false
     }
 }, {

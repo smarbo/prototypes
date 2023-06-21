@@ -16,31 +16,27 @@
 	<body>
 		<div class="join-container">
 			<header class="join-header">
-				<h1><i class="fas fa-smile"></i> SmarboChat - Log In</h1>
+				<h1><i class="fas fa-smile"></i> SmarboChat - Join Room</h1>
 			</header>
 			<main class="join-main">
 				<div id="status-message" style="text-align: center;"></div>
-				<form id="loginForm" action="none">
+				<form id="joinForm" action="none">
 					<div class="form-control">
-						<label for="username">Username</label>
+						<label for="room">Room Code</label>
 						<input
 							type="text"
-							name="username"
-							id="username textinput"
+							name="room"
+							id="room textinput"
 							class="textinput"
-							placeholder="Enter username..."
+							placeholder="Enter room code..."
 							required
 						/>
 					</div>
-					<div class="form-control">
-						<label for="password">Password</label>
-						<input type="password" name="password" id="password textinput" class="textinput" placeholder="Password" required>
-					</div>
-					<button type="submit" class="btn">Log In</button>
-					<a href="/signup" class="link-other" style="text-align: center; color: white; text-decoration: underline;">No account? Sign up instead.</a>
+					<button type="submit" class="btn">Join</button>
 				</form>
 			</main>
 		</div>
-		<script src="/public/static/js/authControllerLogin.js" type="module"></script>
+        <script type="module" src="/public/static/js/joinController.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
 	</body>
 </html>

@@ -5,12 +5,13 @@ export async function createUser(username, password) {
         username: username,
         password: password,
         profile: `Cool guy ${username} is cool!`,
+        room: ""
     }
     try {
         // check if username already exists
         const url_ = `http://localhost:3000/users/v2/${username}`
-        const users = await fetch(url_)
-        if (users.length === 0) {
+        const users = (await fetch(url_)).json
+        if (users.length == 0) {
             // send a post request with the user object as request body to the API
             const res = await fetch(url, {
                 method: "POST",
@@ -19,11 +20,40 @@ export async function createUser(username, password) {
                 },
                 body: JSON.stringify(user)
             })
-            console.log(await res.json());
-            console.log("Success")
+            const resJson = await res.json()
+            const cookies = [
+                {
+                    name: "message",
+                    value: "Account creation success!"
+                },
+                {
+                    name: "profile",
+                    value: user.profile
+                },
+                {
+                    name: "message-id",
+                    value: "success"
+                },
+                {
+                    name: "id",
+                    value: resJson._id
+                },
+                {
+                    name: "username",
+                    value: user.username
+                },
+                {
+                    name: "room",
+                    value: ""
+                }
+            ]
+            setCookies(cookies)
+            return resJson;
         } else {
-            console.log("Username already exists");
+            console.log(`Username ${username} already exists`);
+            console.log(users)
             document.cookie = "message=Username already exists;"
+            document.cookie = "message-id=warn"
         }
     } catch (error) {
         // in case there is an error
@@ -56,7 +86,7 @@ export async function loginUser(username, password) {
     try {
         const res = await fetch(url)
         const resJson = await res.json()
-        console.log(resJson)
+        return resJson;
     } catch (error) {
         console.log(error);
     }
@@ -94,4 +124,11 @@ export function getCookies() {
         }
     }
     return cookiesObject
+}
+
+export function setCookies(cookies){
+    for(let i = 0; i<cookies.length; i++){
+        document.cookie = `${cookies[i].name}=${cookies[i].value}`;
+    }
+    console.log(document.cookie)
 }

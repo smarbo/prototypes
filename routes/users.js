@@ -135,20 +135,24 @@ router
                 res.cookie("profile", user.profile);
                 res.cookie("message", "Logged in successfully!")
                 res.cookie("message-id", "success")
+                res.cookie("room", "")
                 res.status(200).json({ message: "Success login" })
             } else {
                 console.log("Incorrect password")
                 res.cookie("message", "Incorrect password!")
+                res.cookie("message-id", "warn");
                 res.status(403).json({ message: "Bad password" })
             }
         } catch (error) {
             console.log(error.message)
             res.cookie("message", "User not found!")
-            res.status(404).json({ message: error.message });
+            res.cookie("message-id", "warn")
+            res.status(404).json({ message: "User not found!" });
         }
     })
 
 router
+// return all users with a username
     .route("/v2/:username")
     .get(async(req, res) => {
         console.log("GET /users/:username REQUEST");
