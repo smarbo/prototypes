@@ -2,6 +2,7 @@
 const express = require("express");
 const User = require("../models/userModel");
 let router = express.Router();
+const md5 = require("md5");
 
 // Express.JS Middleware functions
 router.use(express.urlencoded())
@@ -14,6 +15,8 @@ router
     .post(async(req, res) => {
         console.log("POST /users/ REQUEST");
         try {
+            // hash password using md5
+            req.body.password = md5(req.body.password);
             // create user with request body
             const user = await User.create(req.body);
             // send back the user object if successful
@@ -110,7 +113,8 @@ router
         console.log("GET /users/login/:username REQUEST");
         try {
             const { username } = req.params;
-            const { password } = req.query;
+            let { password } = req.query;
+            password = md5(password);
 
             const userArray = await User.find({
                 username: username,

@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
     room: {
         type: String,
         required: false
-    }
+    },
 }, {
     timestamps: true
 })

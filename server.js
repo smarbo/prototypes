@@ -33,6 +33,25 @@ app.get("/", (req, res) => {
 app.get("/signup", (req,res) => {
     res.statusCode = 200;
     res.sendFile(path.join(__dirname, "public", "html", "signup.html"))
+    console.log("GET /signup REQUEST");
+})
+
+app.get("/login", (req,res) => {
+    res.statusCode = 200;
+    res.sendFile(path.join(__dirname, "public", "html", "login.html"))
+    console.log("GET /login REQUEST");
+})
+
+app.get("/logout", (req,res) => {
+    res.statusCode = 200;
+    res.clearCookie("username")
+    res.clearCookie("id")
+    res.clearCookie("profile")
+    res.clearCookie("message")
+    res.clearCookie("message-id")
+    res.clearCookie("room")
+    res.redirect("/");
+
 })
 
 app.get("/test", (req,res) => {
@@ -62,7 +81,7 @@ io.on('connection', socket => {
         // broadcast to all that user has joined
         socket.broadcast.to(user.room).emit("message", formatMessage(botName, `${user.username} has joined the chat`));
         // welcome user who joined
-        socket.emit("message", formatMessage(botName, `Welcome to SmarboChat Room ${room}! Remember to be kind and respectful towards others :)`))
+        socket.emit("message", formatMessage(botName, `Welcome to Nodechat Room "${room}"! Disappearing messages are enabled. Remember to be kind and respectful towards others :)`))
 
         io.to(user.room).emit("roomUsers", {
             room: user.room,

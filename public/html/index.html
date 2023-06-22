@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-			integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-			crossorigin="anonymous"
-		/>
-		<link rel="stylesheet" href="/public/static/css/style.css">
-		<title>SmarboChat</title>
-	</head>
-	<body>
-		<div class="join-container">
-			<header class="join-header">
-				<h1><i class="fas fa-smile"></i> SmarboChat - Log In</h1>
-			</header>
-			<main class="join-main">
-				<div id="status-message" style="text-align: center;"></div>
-				<form id="loginForm" action="none">
-					<div class="form-control">
-						<label for="username">Username</label>
-						<input
-							type="text"
-							name="username"
-							id="username textinput"
-							class="textinput"
-							placeholder="Enter username..."
-							required
-						/>
-					</div>
-					<div class="form-control">
-						<label for="password">Password</label>
-						<input type="password" name="password" id="password textinput" class="textinput" placeholder="Password" required>
-					</div>
-					<button type="submit" class="btn">Log In</button>
-					<a href="/signup" class="link-other" style="text-align: center; color: white; text-decoration: underline;">No account? Sign up instead.</a>
-				</form>
-			</main>
-		</div>
-		<script src="/public/static/js/authControllerLogin.js" type="module"></script>
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/public/static/css/style.css">
+  <title>Nodechat App</title>
+</head>
+<body>
+  <div class="chat-container">
+    <header class="chat-header">
+      <h1><i class="fas fa-smile"></i> Nodechat</h1>
+      <a href="/logout" class="btn">Log Out</a>
+    </header>
+    <main class="chat-main">
+      <div class="chat-sidebar">
+        <h3 id="welcome-msg"><i class="fas fa-users"></i> Welcome, USER</h3>
+        <h3><i class="fas fa-door-open"> </i>   Suggested Rooms:</h3>
+        <div class="recent-rooms">
+            <div class="room">
+                <h3>Room <h3 id="room-code">NODECHAT</h3></h3>
+                <button class="room-join-btn" id="room-join-btn">Join</button>
+            </div>
+            <div class="room">
+                <h3>Room <h3 id="room-code">EDDIE</h3></h3>
+                <button class="room-join-btn" id="room-join-btn">Join</button>
+            </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.2/qs.min.js" integrity="sha512-vCegEXqPUYpZsTGz2lk0jaQ1psxtFeniVJACAXhMVxuoYa/N4nZkjoVFOxLwP7uGeQOoemiz7DQrIpRTj4IBPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="module" src="/public/static/js/recentJoiner.js"></script>
+  <script type="module">
+    import { getCookie } from "/public/static/js/exports/exports.js";
+
+    if(!getCookie("username")){
+        window.location.href="/login";
+    }
+  </script>
+  <script type="module" src="/public/static/js/index.js"></script>
+</body>
 </html>

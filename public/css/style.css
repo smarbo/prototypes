@@ -220,6 +220,47 @@ p.text{
     border: 1px solid white;
 }
 
+.room{
+	display: flex;
+	flex-direction: row;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: var(--dark-color-a);
+	box-sizing: border-box;
+	justify-content: left;
+	align-items: center;
+	padding: 5px;
+	min-height: 50px;
+	text-align: left;
+}
+
+.room button{
+	/* Button styles */
+	margin-left: 10px;
+	padding: 5px;
+	padding-left: 8px;
+	padding-right: 8px;
+	border: 2px solid #fff;
+	border-radius: 5px;
+	background: var(--light-color);
+	color: white;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 500;
+	box-shadow: 0 5px 5px 0 rgb(14, 6, 20), 0 4px 15px 0 rgb(9, 4, 15);
+	transition: 0.1s;
+}
+
+.room button:hover{
+	background: var(--dark-color-a);
+	box-shadow: 0 0 0 0;
+}
+
+.room h3{
+	/* Room code styles */
+	margin: 0;
+	margin-right: 5px;
+}
+
 
 @media (max-width: 700px) {
 	.chat-main {

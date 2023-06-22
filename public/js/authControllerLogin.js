@@ -3,7 +3,7 @@ const statusMessage = document.getElementById("status-message");
 import { loginUser, getCookie, setCookies } from "/public/static/js/exports/exports.js";
 
 if(getCookie("username")){
-    window.location.href = "http://localhost:3000/join"
+    window.location.href = "/"
 }
 
 loginForm.addEventListener("submit", async (e)=>{
@@ -15,9 +15,13 @@ loginForm.addEventListener("submit", async (e)=>{
     statusMessage.textContent = getCookie("message");
     if(getCookie("message-id") == "warn"){
         statusMessage.className = "warn";
+        e.target.elements.username.value = "";
+        e.target.elements.password.value = "";
+        e.target.elements.username.focus();
     } else if(getCookie("message-id") == "success"){
         statusMessage.className = "success";
+        window.location.href = "/"
     }
 
-    window.location.href = "http://localhost:3000/join"
+
 })

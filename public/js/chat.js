@@ -9,9 +9,9 @@ const username = getCookie("username");
 const room = getCookie("room");
 
 if(!username){
-    window.location.href = "http://localhost:3000/";
+    window.location.href = "/";
 } else if(!room){
-    window.location.href = "http://localhost:3000/join";
+    window.location.href = "/join";
 }
 
 const socket = io();
@@ -27,7 +27,6 @@ socket.on("roomUsers", ({ room, users })=> {
 
 // message from server
 socket.on("message", message => {
-    console.log(message);
     renderMessage(message);
 })
 
